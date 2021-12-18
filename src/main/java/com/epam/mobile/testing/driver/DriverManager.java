@@ -1,5 +1,6 @@
 package com.epam.mobile.testing.driver;
 
+import com.epam.mobile.testing.configuration.AddressConfigurator;
 import com.epam.mobile.testing.configuration.ConfigurationReader;
 import com.epam.mobile.testing.configuration.EnvironmentType;
 import io.appium.java_client.AppiumDriver;
@@ -47,6 +48,10 @@ public class DriverManager {
             LOG.info("Driver is closed");
         });
     }
+    public static void closeAppium(){
+        AddressConfigurator.stopService();
+    }
+
     public static void closeEmulator(){
         try{
             Runtime.getRuntime().exec(format("adb -s %s emu kill", ConfigurationReader.get().udid()));
