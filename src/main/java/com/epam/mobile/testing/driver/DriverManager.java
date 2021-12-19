@@ -1,6 +1,7 @@
 package com.epam.mobile.testing.driver;
 
 import com.epam.mobile.testing.configuration.AddressConfigurator;
+import com.epam.mobile.testing.configuration.CapabilitiesConfigurator;
 import com.epam.mobile.testing.configuration.ConfigurationReader;
 import com.epam.mobile.testing.configuration.EnvironmentType;
 import io.appium.java_client.AppiumDriver;
@@ -32,7 +33,8 @@ public class DriverManager {
     private static AppiumDriver<MobileElement>createDriver(){
         switch (ENVIRONMENT_TYPE){
             case LOCAL:
-                driver=new AndroidDriver<MobileElement>(null);
+                driver=new AndroidDriver<>(AddressConfigurator.getAppiumDriverLocalService(ConfigurationReader.get().appiumPort()),
+                        CapabilitiesConfigurator.getLocalCapabilities());
                 break;
             default:
                 throw new IllegalArgumentException(format("Unexpected environment value: %s", ENVIRONMENT_TYPE));
